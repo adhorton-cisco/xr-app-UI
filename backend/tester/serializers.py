@@ -5,4 +5,4 @@ class PackageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Package
-        fields = ('pk', 'name')
+        fields = '__all__'

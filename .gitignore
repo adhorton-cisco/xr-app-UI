@@ -2,3 +2,4 @@ Pipfile
 Pipfile.lock
 migrations/
 backend/db.sqlite3
+files/packages
