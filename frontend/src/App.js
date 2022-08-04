@@ -28,7 +28,7 @@ class App extends Component {
       let form_data = new FormData();
       form_data.append('name', this.state.name);
       form_data.append('package', this.state.package)
-      let url = 'http://localhost:8000/tester/packages/';
+      let url = 'http://localhost:8000/appmgr/packages/';
       axios.post(url, form_data, {
         headers: {
           "Content-Type": "multipart/form-data",
