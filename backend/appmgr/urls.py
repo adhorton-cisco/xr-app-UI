@@ -4,5 +4,6 @@ from . import views
 urlpatterns = [
     path('packages/', views.all_packages),
     path('packages/<int:id>/', views.package_id),
-    path('packages/<str:name>/', views.package_name)
+    path('packages/<str:name>/', views.package_name),
+    path('packages/install/<str:name>/', views.package_install)
 ]

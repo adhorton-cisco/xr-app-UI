@@ -6,6 +6,7 @@ class App extends Component {
     super(props);
     this.state = {
       name: '',
+      name2: '',
       package: null,
       username: '',
       password: '',
@@ -52,7 +53,7 @@ class App extends Component {
       form_data.append('password', this.state.password)
       form_data.append('ipaddress', this.state.ipaddress);
       form_data.append('port', this.state.port)
-      let url = String.concat('http://localhost:8000/appmgr/packages/install/' + this.state.name);
+      let url = 'http://localhost:8000/appmgr/packages/install/' + this.state.name2 + '/';
       axios.post(url, form_data, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -81,13 +82,16 @@ class App extends Component {
 
           <form onSubmit={this.handleSubmitForm2} encType="multipart/form-data">
             <p>
+              &emsp;<input type="text" placeholder='Name' id='name2' value={this.state.name2} onChange={this.handleChange} required/>
+            </p>
+            <p>
               &emsp;<input type="text" placeholder='Username' id='username' value={this.state.username} onChange={this.handleChange} required/>
             </p>
             <p>
               &emsp;<input type="text" placeholder='Password' id='password' value={this.state.password} onChange={this.handleChange} required/>
             </p>
             <p>
-              &emsp;<input type="text" placeholder='IP Address' id='ipadress' value={this.state.ipaddress} onChange={this.handleChange} required/>
+              &emsp;<input type="text" placeholder='IP Address' id='ipaddress' value={this.state.ipaddress} onChange={this.handleChange} required/>
             </p>
             <p>
               &emsp;GRPC Port <input type="number" placeholder='GRPC Port' id='port' value={this.state.port} onChange={this.handleChange} required/>

@@ -7,6 +7,7 @@ from rest_framework import status
 
 from .models import Package
 from .serializers import *
+from .gnmi_config import MDT
 
 import os.path
 
@@ -67,3 +68,18 @@ def package_name(request, name):
         clean_old_package(package)
         package.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['POST'])
+def package_install(request, name):
+    try:
+        package = Package.objects.get(name=name)
+    except Package.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'POST':
+        data = request.data
+        with MDT(data['ipaddress'], data['port'], data['username'], data['password']) as installer:
+            print(installer.get_config())
+        return Response(status=status.HTTP_200_OK)
+
+
