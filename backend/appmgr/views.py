@@ -10,9 +10,6 @@ from .serializers import *
 
 import os.path
 
-def hello_world(request):
-    return HttpResponse('Hello World')
-
 def clean_old_package(package):
     if os.path.isfile(package.package.path):
         os.remove(package.package.path)
@@ -39,7 +36,7 @@ def all_packages(request):
             package.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)    
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'DELETE'])
 def package_id(request, id):
     try:
         package = Package.objects.get(pk=id)
@@ -49,21 +46,13 @@ def package_id(request, id):
     if request.method == 'GET':
         serializer = PackageSerializer(package, context={'request':request})
         return Response(serializer.data)
-    
-    elif request.method == 'PUT':
-        clean_old_package(package)
-        serializer = PackageSerializer(package, data=request.data, context={'request':request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         clean_old_package(package)
         package.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-@api_view(['GET', 'PUT', 'DELETE'])
+@api_view(['GET', 'DELETE'])
 def package_name(request, name):
     try:
         package = Package.objects.get(name=name)
@@ -73,14 +62,6 @@ def package_name(request, name):
     if request.method == 'GET':
         serializer = PackageSerializer(package, context={'request':request})
         return Response(serializer.data)
-    
-    elif request.method == 'PUT':
-        clean_old_package(package)
-        serializer = PackageSerializer(package, data=request.data, context={'request':request})
-        if serializer.is_valid():
-            serializer.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
         clean_old_package(package)

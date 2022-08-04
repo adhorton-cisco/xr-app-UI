@@ -3,3 +3,6 @@ Pipfile.lock
 migrations/
 backend/db.sqlite3
 files/packages
+node_modules
+__pycache__
+.vscode/
